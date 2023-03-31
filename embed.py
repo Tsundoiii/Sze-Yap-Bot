@@ -2,8 +2,9 @@ import discord
 
 
 class EmbedPage:
-    def __init__(self, embed: discord.Embed, audio: list, audio_link: str,
-                 curr_selection: int):
+    def __init__(
+        self, embed: discord.Embed, audio: list, audio_link: str, curr_selection: int
+    ):
         self.content = embed
         self.audio = audio
         self.audio_link = audio_link
@@ -21,10 +22,12 @@ class EmbedList:
         self.message_id = message_id
         self.type_id = type_id
 
-    def add_page(self, embed: discord.Embed, audio: list,
-                 link: list, selection: int):
-        self.pages.append(EmbedPage(embed=embed, audio=audio, audio_link=link,
-                                    curr_selection=selection))
+    def add_page(self, embed: discord.Embed, audio: list, link: list, selection: int):
+        self.pages.append(
+            EmbedPage(
+                embed=embed, audio=audio, audio_link=link, curr_selection=selection
+            )
+        )
         self.list_len += 1
         self.curr = self.list_len - 1
 
@@ -56,7 +59,7 @@ def change_selection(embed: EmbedList, direction: int) -> int:
         return
     if direction < 0 and embed.curr_page().curr_selection < 1:
         curr_field = num_elem - 2
-    elif direction > 0 and embed.curr_page().curr_selection >= num_elem-2:
+    elif direction > 0 and embed.curr_page().curr_selection >= num_elem - 2:
         curr_field = 0
     else:
         curr_field = embed.curr_page().curr_selection + direction
@@ -70,14 +73,16 @@ def add_credit(embed, embed_list, credit):
             name=chr(173),
             value=f"*SOURCE*: [Gene Chin's Hoisanva English Dictionary]"
             f"(https://sites.fitnyc.edu/users/gene_chin/hed/index.htm)",
-            inline=False)
+            inline=False,
+        )
     else:
         embed.add_field(
             name=chr(173),
             value=f"*SOURCE*: [Stephen Li's Taishanese Dictionary]"
             f"(https://stephen-li.com/WebTemplates/greencreative/taishanese."
             f"html)",
-            inline=False)
+            inline=False,
+        )
     if len(embed_list.pages) > 1 and embed_list.type_id in [1, 3]:
         embed_list.curr_page().audio.extend([None, None])
         embed_list.curr_page().audio_link.extend([None, None])
